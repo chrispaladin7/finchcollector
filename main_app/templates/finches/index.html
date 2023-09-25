@@ -4,15 +4,17 @@
 <h1>ALL FINCH LIST</h1>
 
 {% for finch in finches %}
+<div class="container">
     <div class="card">
         <div class="card-content">
             <span class="card-title">{{ finch.species }}</span>
             <p>Color: {{ finch.color }}</p>
             <p>Size: {{ finch.size }}</p>
             <p>Description: {{ finch.description }}</p>
-            
+
         </div>
     </div>
+</div>
 {% endfor %}
 
 
