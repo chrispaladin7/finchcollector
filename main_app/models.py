@@ -48,7 +48,7 @@ class Distribution(models.Model):
         return f'Distribution of {self.get_distribution_display()} in {self.date}'
 
 class Feeding(models.Model):
-  date = models.DateField()
+  date = models.DateField('Feeding date')
   meal = models.CharField(
     max_length=1,
     choices=MEALS,
