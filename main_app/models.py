@@ -2,10 +2,16 @@ from django.db import models
 from django.urls import reverse
 
 LOCATIONS=(
-    {'N','North'},
-    {'S','South'},
-    {'E','East'},
-    {'W','West'},
+    ('N','North'),
+    ('S','South'),
+    ('E','East'),
+    ('W','West'),
+)
+
+MEALS = (
+  ('B', 'Breakfast'),
+  ('L', 'Lunch'),
+  ('D', 'Dinner'),
 )
 
 # Create your models here.
@@ -40,4 +46,20 @@ class Distribution(models.Model):
 
     def __str__(self):
         return f'Distribution of {self.get_distribution_display()} in {self.date}'
+
+class Feeding(models.Model):
+  date = models.DateField()
+  meal = models.CharField(
+    max_length=1,
+    choices=MEALS,
+    default=MEALS[0][0]
+  )
+  # Create a cat_id FK
+  finch = models.ForeignKey(
+    Finch,
+    on_delete=models.CASCADE
+  )
+
+  def __str__(self):
+    return f"{self.get_meal_display()} on {self.date}"
      
