@@ -10,7 +10,10 @@
             <p>Color: {{ finch.color }}</p>
             <p>Size: {{ finch.size }}</p>
             <p>Description: {{ finch.description }}</p>
-
+        </div>
+        <div class="card-action">
+            <a href="{% url 'finches_update' finch.id %}">Edit</a>
+            <a href="{% url 'finches_delete' finch.id %}">Delete</a>
         </div>
     </div>
 </div>
