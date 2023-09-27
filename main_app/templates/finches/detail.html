@@ -22,10 +22,17 @@
     </div>
 
     <div class="col s6">
-        {% csrf_token %}
-        {{ feeding_form.as_p }}
-        <input type="submit" class="btn" value="Add Feeding">
+        <form action="{% url 'add_feeding' finch.id %}" method="POST">
+            {% csrf_token %}
+            {{ feeding_form.as_p }}
+            <input type="submit" class="btn" value="Add Feeding">
         </form>
+        <br>
+        {% if finch.fed_for_today %}
+        <div class="card-panel teal-text center-align">{{finch.species}} has been fed all meals for today</div>
+        {% else %}
+        <div class="card-panel red-text center-align">{{finch.species}} might be hungry</div>
+        {% endif %}
         <table class="striped">
             <thead>
                 <tr>
@@ -34,7 +41,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for feeding in cat.feeding_set.all %}
+                {% for feeding in finch.feeding_set.all %}
                 <tr>
                     <td>{{feeding.date}}</td>
                     <td>{{feeding.get_meal_display}}</td>
@@ -44,4 +51,17 @@
         </table>
     </div>
 </div>
+
+<script>
+    const dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
+
+    const selectEl = document.getElementById('id_meal');
+    M.FormSelect.init(selectEl);
+</script>
 {% endblock %}

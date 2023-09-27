@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 LOCATIONS=(
     ('N','North'),
@@ -26,6 +27,9 @@ class Finch(models.Model):
     
     def get_absolute_url(self):
         return reverse('detail', kwargs={'finch_id':self.id})
+    
+    def fed_for_today(self):
+        return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
     
 
 class Distribution(models.Model):
@@ -62,4 +66,7 @@ class Feeding(models.Model):
 
   def __str__(self):
     return f"{self.get_meal_display()} on {self.date}"
+  
+class Meta:
+   ordering = ['-date']
      

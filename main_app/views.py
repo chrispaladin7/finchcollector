@@ -37,10 +37,10 @@ class FinchDelete(DeleteView):
     model = Finch
     success_url = '/finches'
 
-def add_feeding(request,cat_id):
-    form =FeedingForm(request.POSt)
+def add_feeding(request,finch_id):
+    form =FeedingForm(request.POST)
     if form.is_valid():
         new_feeding = form.save(commit=False)
-        new_feeding.cat_id = cat_id
+        new_feeding.finch_id = finch_id
         new_feeding.save()
-    return redirect('detail',cat_id=cat_id)
+    return redirect('detail',finch_id=finch_id)
